@@ -1,0 +1,361 @@
+ html, body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .body-container{
+            width: 90%;
+            margin: auto;  
+        }
+     
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: -290px; /* Initially hidden */
+            top: 0;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000; 
+            }
+
+        .sidebar.show {
+            left: 0px; 
+        }
+
+        .sidebar li{
+            list-style: none;
+            justify-content: space-between;
+            align-items: start;
+            padding: 3px;
+            margin: .6rem 4px;
+
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .sidebar li img{
+            margin-top: .3rem;
+        }
+
+        .container{
+            flex: 1;
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1; 
+        }
+
+        .main-content {
+            
+            display: flex;
+            gap: 20px;
+            
+            width: 100%;
+            margin: 0 auto !important;
+            
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            margin-right: 1rem;
+            justify-content: space-between;
+            align-items: start;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid start;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .icons img {
+            height: 24px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
+        .profile-card {
+            flex: 1;
+            background-color: #ff5722;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            /* display: flex; */
+            align-items: center;
+            max-width: 450px;
+            height: 260px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+           
+        }
+
+        .profile-card img {
+            height: 150px;
+            margin-right: 20px;
+        }
+        
+        .wallet-section {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 450px;
+            height: 260px;
+        }
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wallet-header span {
+            font-weight: bold;
+        }
+        .wallet-balance {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            height: 6.8rem;
+            padding: 10px;
+            width: 98%;
+        }
+
+        .wallet-details .daily-tokens {
+            
+            justify-content: space-between;
+            margin-top: 10px;
+            width: 98%;
+        }
+
+        .wallet-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .wallet-actions button {
+            padding: 10px;
+            border: none;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .footer a {
+            color: #ff5722;
+            text-decoration: none;
+        }
+
+
+        @media(max-width: 780px){
+                .body-container{
+                    margin: unset;
+
+                }
+
+                .main-content {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 40px;
+                    width: 100%;
+                    margin: auto;
+                }
+                
+
+                .sidebar {
+                    width: 70%;
+                    left: -100%; /* Initially hidden */
+                }
+
+                .sidebar li{
+                    margin-left: unset;
+                }
+
+                .container{
+                    width: 100%;
+                    padding: auto;
+                    margin: 0 auto;
+                    justify-content: center;
+                    align-items: center;
+                    
+                }
+
+                .profile-card{
+                    width: 95%;
+                    margin: auto !important;
+                    min-height: 100px !important;
+                    font-size: 12px;
+                    padding: 3px;
+                    margin: 0 auto;
+                    margin-right: 1rem;
+                    justify-content: center;
+                }
+
+                .wallet-section{
+                    width: 95%;
+                    min-height: 100px !important;
+                    font-size: 12px;
+                    padding: 3px;
+                    margin: 0 auto;
+                }
+
+                .wallet-details .daily-tokens{
+                    width: 90%;
+                    height: 4.5rem;
+                    padding: 10px;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                }
+
+                .wallet-balance{
+                    width: 90%;
+                    justify-content: space-between;
+                    margin-top: 10px;
+                }
+
+            .logo{
+                margin-left: 10px;
+            }
+                
+            body{
+                overflow-x: hidden;
+                margin: auto;
+                width: 100% !important;
+            }
+
+             .navbar{
+                width: 100% !important;
+                display: flex;
+                margin: auto !important;
+                justify-content: space-between;
+                align-items: flex-start;
+
+            }
+
+            .bottom-nav{
+                width: 100%;
+            }
+
+            .icons img {
+                height: 21px;
+                width: 21px;
+                margin-left: 0 !important;
+                cursor: pointer;
+            }
+
+            .navbar .logo img{
+                width: 35px !important;
+                height: 35px !important;
+                border-radius: 50%;
+            }
+
+            .navbar .logo span{
+                font-size: 13px;
+            }
+
+            .qrcode{
+                width: 80px;
+                height: 80px;
+            }
+
+            .details h2{
+                margin-top: -.05rem;
+                font-size: 13px;
+            }
+
+            .details p{
+                margin-top: -.6rem;
+            }
+
+            ul li img{
+                margin-left: -3rem;
+            }
+
+        }
+
+
+    .wallet-overview {
+        font-family: "Cal Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        width: 90%;
+        z-index: 1000;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid #ddd;
+        margin: auto;
+        align-items: center;
+    }
+
+    @media(max-width: 350px){
+        .navbar{
+            width: 100%;
+        }
+
+        .icons img{
+            width: 14px;
+        }
+
+        .empire-title{
+            font-size: 9px;
+        }
+
+    }
+
+    /* Advanced Active Class */
+.active {
+  background-color: #cbd9da00; /* Vibrant Background */
+  color: #0f0101; /* Text Color */
+  border-bottom: 2px solid #ff5733; /* Border */
+}
+
+/* Active Hover Effect */
+.active:hover {
+  background-color: #c70039; 
+  transform: scale(1.2); 
+}
+
+/* Active Click Effect */
+.active:active {
+  animation: pulse 0.5s infinite alternate; 
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1.3);
+    }
+}
