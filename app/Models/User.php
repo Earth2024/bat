@@ -20,9 +20,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'lastName',
         'email',
         'password',
+        'country',
+        'firstName',
+        'upass',
+        'terms',
     ];
 
     /**
@@ -48,6 +52,9 @@ class User extends Authenticatable
         ];
     }
 
+    protected $casts = [
+        'terms' => 'boolean',
+    ];
     /**
      * Get the user's initials
      */
@@ -58,4 +65,21 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function account(){
+        return $this->hasOne(Account::class);
+    }
+
+    public function bots(){
+        return $this->hasMany(Bot::class);
+    }
+
+    public function opts(){
+        return $this->hasMany(Option::class, 'user_id', 'id');
+    }
+    
+    public function bnb(){
+        return $this->hasOne(BnbWallet::class);
+    }
 }
+

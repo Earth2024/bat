@@ -1,0 +1,43 @@
+  
+
+    input, select, button{
+        max-width: 10rem;
+        height: 2rem;
+        margin: auto;
+    }
+
+    #chartCanvas {
+      width: 80%;
+      height: 300px;
+      margin-bottom: 2rem;
+    }
+    #countdown, #result {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    #result {
+      color: green;
+    }
+    .toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 1rem;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s, bottom 0.5s;
+    }
+    .toast.show {
+      visibility: visible;
+      bottom: 60px;
+      opacity: 1;
+    }

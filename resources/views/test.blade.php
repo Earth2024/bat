@@ -1,127 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid-Based Layout</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            display: grid;
-            grid-template-rows: auto 1fr;
-            grid-template-columns: 250px 1fr;
-            grid-template-areas: 
-                "sidebar navbar"
-                "sidebar content";
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            grid-area: sidebar;
-            background-color: #1c1c1c;
-            padding: 20px;
-        }
-
-        .navbar {
-            grid-area: navbar;
-            background-color: #333;
-            padding: 15px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .content {
-            grid-area: content;
-            padding: 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin-bottom: 10px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 24px;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                grid-template-rows: auto auto 1fr;
-                grid-template-columns: 1fr;
-                grid-template-areas: 
-                    "navbar"
-                    "sidebar"
-                    "content";
-            }
-
-            .sidebar {
-                position: absolute;
-                width: 100%;
-                left: -100%;
-                transition: left 0.3s ease-in-out;
-            }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deriv Binary Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    #chartCanvas {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 2rem;
+    }
+    #countdown, #result {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    #result {
+      color: green;
+    }
+    .toast {
+      visibility: hidden;
+      min-width: 200px;
+      margin: auto;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 1rem;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s, bottom 0.5s;
+    }
+    .toast.show {
+      visibility: visible;
+      bottom: 60px;
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
+  <h1>📈 Binary Options</h1>
 
-    <div class="navbar">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-        Tesla SpaceX Trade
-    </div>
+  <div id="price">Price: --</div>
+  <canvas id="chartCanvas"></canvas>
 
-    <aside class="sidebar" id="sidebar">
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Live Trade</a></li>
-                <li><a href="#">Plans</a></li>
-                <li><a href="#">Transactions</a></li>
-                <li><a href="#">Fund Wallet</a></li>
-                <li><a href="#">Place Withdrawal</a></li>
-                <li><a href="#">Referrals</a></li>
-                <li><a href="#">My Account</a></li>
-            </ul>
-        </nav>
-    </aside>
+  <form id="tradeForm">
+    <input type="number" id="amount" placeholder="Amount" required />
+    <select id="contract_type">
+      <option value="CALL">Call</option>
+      <option value="PUT">Put</option>
+    </select>
+    <button type="submit">Place Trade</button>
+  </form>
 
-    <section class="content">
-        <h2>Welcome to Your Dashboard</h2>
-        <p>Your account details and trading insights will be displayed here.</p>
-    </section>
+  <div id="countdown">⏳ Time Left: --</div>
+  <div id="result">💵 Result: --</div>
+  <div id="toast" class="toast">Placeholder</div>
 
-    <script>
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle("show");
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const token = "tA2pyAlp6NYzHVc"; // replace with your actual demo token
+    const ws = new WebSocket("wss://ws.derivws.com/websockets/v3?app_id=80174");
+
+    let chartData = [];
+    let currentContractId = null;
+    let countdownInterval = null;
+
+    const ctx = document.getElementById("chartCanvas").getContext("2d");
+    const myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Price',
+          data: [],
+          borderColor: 'blue',
+          fill: false
+        }]
+      },
+    });
+
+    function updateChart(price) {
+      const now = new Date().toLocaleTimeString();
+      if (chartData.length > 50) {
+        chartData.shift();
+        myChart.data.labels.shift();
+      }
+      chartData.push(price);
+      myChart.data.labels.push(now);
+      myChart.data.datasets[0].data = chartData;
+      myChart.update();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function startCountdown(expiryTime) {
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        const now = Math.floor(Date.now() / 1000);
+        const remaining = expiryTime - now;
+        const countdown = document.getElementById("countdown");
+        if (remaining > 0) {
+          countdown.innerText = `⏳ Time Left: ${remaining}s`;
+        } else {
+          countdown.innerText = `⌛ Trade Expired`;
+          clearInterval(countdownInterval);
         }
-    </script>
+      }, 1000);
+    }
 
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ authorize: token }));
+      ws.send(JSON.stringify({ ticks: "R_100" }));
+    };
+
+    ws.onmessage = (msg) => {
+      const data = JSON.parse(msg.data);
+
+      if (data.error) {
+        showToast(`❗ ${data.error.message}`);
+        console.error(data.error);
+      }
+
+      if (data.tick) {
+        document.getElementById("price").innerText = "Price: " + data.tick.quote;
+        updateChart(data.tick.quote);
+      }
+
+      if (data.buy) {
+        currentContractId = data.buy.contract_id;
+        showToast(`✅ Trade placed! ID: ${currentContractId}`);
+        document.getElementById("result").innerText = "💵 Result: Waiting...";
+        ws.send(JSON.stringify({
+          proposal_open_contract: 1,
+          contract_id: currentContractId,
+          subscribe: 1
+        }));
+      }
+
+      if (data.proposal_open_contract) {
+        const poc = data.proposal_open_contract;
+
+        if (poc.date_expiry) startCountdown(poc.date_expiry);
+
+        if (poc.status === "won") {
+          const message = `🎉 You WON! Profit: $${poc.profit}`;
+          showToast(message);
+          document.getElementById("result").innerText = `💵 Result: ${message}`;
+        } else if (poc.status === "lost") {
+          const message = `😞 You LOST. -$${poc.amount}`;
+          showToast(message);
+          document.getElementById("result").innerText = `💵 Result: ${message}`;
+        }
+      }
+    };
+
+    document.getElementById("tradeForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const contract_type = document.getElementById("contract_type").value;
+      const amount = document.getElementById("amount").value;
+
+      const trade = {
+        buy: 1,
+        price: amount,
+        parameters: {
+          amount: amount,
+          basis: "stake",
+          contract_type: contract_type,
+          currency: "USD",
+          duration: 1,
+          duration_unit: "m",
+          symbol: "R_100"
+        }
+      };
+
+      ws.send(JSON.stringify(trade));
+    });
+  </script>
 </body>
 </html>

@@ -9,22 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
     @livewireStyles
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  
     <link rel="stylesheet" href="{{url('binary/latest.css')}}">
-    
     @yield('style')
+    @yield('special-script')
+    <meta name="trade-finalize-url" content="{{ route('option.update') }}">
 </head>
-<body style="">
+<body style="width: 100%;">
 
     <div class="body-container">
-        @include('backend.navbar')
-        @include('backend.sidebar')
+        @include('backend.inc.navbar')
+        @include('backend.inc.sidebar')
 
         @yield('content')
-
-        @include('backend.bottom-nav')
+        
+        <!-- @include('backend.inc.bottom-nav') -->
     </div>
 
     @livewireScripts
+    @stack('scripts')
     @yield('script')
     <script>
 
@@ -37,6 +42,6 @@
         }
 
     </script>
-    
+
 </body>
 </html>

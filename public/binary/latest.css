@@ -13,7 +13,7 @@
         }
      
         .sidebar {
-            width: 250px;
+            width: 200px;
             height: 100vh;
             position: fixed;
             left: -290px; /* Initially hidden */
@@ -187,12 +187,13 @@
                 
 
                 .sidebar {
-                    width: 70%;
+                    width: 40%;
                     left: -100%; /* Initially hidden */
                 }
 
                 .sidebar li{
                     margin-left: unset;
+                    font-size: 12px;
                 }
 
                 .container{
