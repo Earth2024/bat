@@ -20,7 +20,11 @@ class BinaryLoginController extends Controller{
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard');
+            if(auth()->user()->role === 'admin'){
+                return redirect()->route('admin.dashboard');
+            }elseif(auth()->user()->role === 'user'){
+                return redirect()->route('dashboard');
+            }
         }
 
         return back()->withErrors([

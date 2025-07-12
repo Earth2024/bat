@@ -334,6 +334,13 @@
 
     }
 
+     @media(max-width: 780px){
+        .body-container{
+            width: 100%;
+            margin: auto;  
+        }
+     }
+
     /* Advanced Active Class */
 .active {
   background-color: #cbd9da00; /* Vibrant Background */

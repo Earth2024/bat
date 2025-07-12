@@ -18,7 +18,7 @@ class OptionController extends Controller
 
     public function place(Request $request){
         $validated = $request->validate([
-            'amount' => 'required|numeric|min:0.5|max:10000',
+            'amount' => 'required|numeric|min:1.0|max:10000',
             'contractType' => 'required|in:CALL,PUT',
         ]);
 

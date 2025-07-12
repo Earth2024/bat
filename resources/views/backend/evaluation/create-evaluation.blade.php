@@ -46,7 +46,7 @@
 @endsection
 @section('content')
 
-  <div>
+  <div class="create-evaluate">
     @livewireStyles()
     <livewire:evaluation.purchase />
     @livewireScripts()

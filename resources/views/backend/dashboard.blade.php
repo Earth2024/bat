@@ -1,6 +1,12 @@
 @extends('layouts.user')
 @section('title', "Binary Ai Crypto Trading - Dashboard")
-
+<style>
+    @media(max-width: 471px){
+        p, h5, span{
+            font-size: 13px;
+        }
+    }
+</style>
 @section('content')
     <div class="container" style="">
         <div class="main-content">
@@ -9,15 +15,13 @@
                 <div class="details"> 
                     @if (auth()->user())
                         <h2>{{auth()->user()->firstName}}</h2>
-                        <p> <span>@</span>{{explode( '@', auth()->user()->email)[0]}}</p>
-                        <p>{{\Carbon\Carbon::parse(auth()->user()->created_at)->format('d F Y')}}</p>
+                        <p style="padding-top: 10px;">{{\Carbon\Carbon::parse(auth()->user()->created_at)->format('d F Y')}}</p>
                     @endif
                 </div>
 
                 <h4 style="display: block; position: absolute; top: 0; right: 0;"><img style="background-color:  #ff5722; fill:  #ff5722; width: 40px; height: 50px; border-radius: 50%;" src="{{url('binary/logo.jpg')}}" alt="Profile Picture"></h4>
                 <h4 style="position: absolute; bottom: 0; right: 9px; border-radius: 30px; background-color: rgb(215, 105, 85); color: white; padding: 5px 10px;">
-                        <span>0</span>
-                    <span> Referral</span>
+                        <span><span>@</span>{{explode( '@', auth()->user()->email)[0]}}</span>
                 </h4>
             </div>
             <div class="wallet-section">
@@ -29,7 +33,7 @@
                 
                 
                 <livewire:dashboard.balance />
-                <a href="{{route('wallets')}}" class="btn btn-primary py-auto">Wallet transfer</a>
+                <a href="{{route('wallets')}}" class="btn btn-primary py-auto">Transfer</a>
             </div>
         </div>
         <div class="wallet-actions" style=" margin-bottom: 2rem; padding: 10px; display: flex; justify-content: space-between; align-items: center;">

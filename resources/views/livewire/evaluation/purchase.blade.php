@@ -5,7 +5,7 @@
 
     .card-section {
       display: flex;
-      flex-wrap: wrap;
+      /* flex-wrap: wrap; */
       gap: 2rem;
       justify-content: center;
       padding: 2rem;
@@ -18,6 +18,7 @@
       border-radius: 20px;
       padding: 1.5rem;
       flex: 1 1 300px;
+      margin: auto auto;
       max-width: 400px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s ease;
@@ -57,8 +58,13 @@
 
     @media (max-width: 768px) {
       .card-section {
+        width: 100%;
+        display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
       }
 
       .funding-card {
@@ -74,6 +80,31 @@
         align-items: flex-start;
       }
     }
+
+    @media(max-width:471px){
+      .body{
+        width: 100%;
+      }
+      .card-section{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .funding-card{
+        width: 90dvw;
+        margin: unset !important;
+      }
+
+      .types{
+        display: flex; 
+        justify-content: space-around;
+        font-size: 13px;
+      }
+
+    }
   </style>
   
     <h2 style="text-align: center; margin-top: 2rem;">ACCOUNT CONFIGURATION</h2>
@@ -88,8 +119,10 @@
         <div class="funding-card">
           <h3 style="text-align: center;">Select challenge type</h3>
           <hr>
-          <button wire:click="getEvaluation('evaluation')" type="submit" style="width: auto; border: 1px solid green; border-radius: 40px; {{$evaluation === true ? 'background-color: green;' : ''}}">Evaluation</button>
-          <button wire:click="getEvaluation('funding')" type="button" style="width: auto; border: 1px solid green; border-radius: 40px; {{$funding === true ? 'background-color: green;' : ''}}">Fast Funding</button>
+          <div class="types">
+            <button wire:click="getEvaluation('evaluation')" type="submit" style="width: auto; border: 1px solid green; border-radius: 40px; {{$evaluation === true ? 'background-color: green;' : ''}}">Evaluation</button>
+            <button wire:click="getEvaluation('funding')" type="button" style="width: auto; border: 1px solid green; border-radius: 40px; {{$funding === true ? 'background-color: green;' : ''}}">Fast Funding</button>
+          </div>
           <div>
             <div>
               <h3 style="margin-top: 1.5rem;">Currency</h3>

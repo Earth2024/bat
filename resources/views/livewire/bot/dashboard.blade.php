@@ -2,10 +2,12 @@
   x-data
   @trade-updated.window="$wire.handleTradeUpdate($event.detail)"
   class="bg-gray-900 text-white p-6 font-sans"
+  style="display: flex !important; flex-direction: column; justify-content: center !important; width: 100%; align-items: center; "
 >
 
   <h1 class="text-3xl font-bold text-cyan-400 mb-6">🤖 AI Trading Bot</h1>
   @if (session('status'))
+    <span>{{session('status')}}</span>
     @elseif (session('error'))
     <span>{{session('error')}}</span>
   @endif

@@ -1,4 +1,4 @@
-<div class="sidebar" id="sidebar" style="overflow-y: auto !important; margin-bottom: 3rem;">
+<div class="sidebar" id="sidebar" style="overflow-y: auto !important; margin-bottom: 3rem; color: black !important;">
     <img onclick="menuButton()" src="{{url('backend/img/close.png')}}" alt="" style="cursor: pointer; position: absolute; top: 0; right: .2rem;">
     <div style="display: grid; justify-content: center; margin: auto;">
         <!-- <img src="{{url('backend/img/account-circle.png')}}" alt=""> -->

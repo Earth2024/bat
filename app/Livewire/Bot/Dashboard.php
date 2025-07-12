@@ -5,6 +5,7 @@ namespace App\Livewire\Bot;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\BotTransaction;
+use App\Models\CompanyAccount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\QueryException;
@@ -47,8 +48,14 @@ class Dashboard extends Component
             'tp' => 'required|numeric|min:1.2',
             'tsl' => 'nullable|numeric|min:1',
         ]);
-        
+        $botAcc = auth()->user()->account->botAccount;
+        $comAcc = CompanyAccount::where('email', 'nigakool@gmail.com')->first();
+        if($botAcc->balance < ($this->sl + 0.50)){
+            return back()->with('error', "Insufficient funds. Please fund your primary wallet or transfer funds from your primary wallet to bot wallet.");
+        }
         try {
+            $botAcc->decrement('balance', (float) ($this->sl + 0.50));
+            $comAcc->increment('balance', (float) 0.50);
             $trade = BotTransaction::create([
             'bot_account_id' => auth()->user()->account->botAccount->id,
             'user_id' =>  auth()->user()->id,

@@ -82,7 +82,7 @@
                     name="amount"
                     x-model="amount"
                     placeholder="Amount ($)"
-                    min="0.5"
+                    min="1"
                     step="0.01"
                     required
                     class="w-1/2 border border-gray-300 rounded-lg px-4 py-2 text-center text-blue-800 font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />

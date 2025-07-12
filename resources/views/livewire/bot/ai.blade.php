@@ -10,17 +10,17 @@
         <div class="icon">🧪</div>
         <h4>For beginner traders</h4>
         <h2>BASIC KEY</h2>
-        <p class="price">$35</p>
+        <p class="price">$50</p>
         <p  style="color: #ffde59 !important;">2-week key</p>
-        <button wire:click="buyBot(35, 'BASIC', '{{now()->addDays(14)}}')">BUY</button>
+        <button wire:click="buyBot(50, 'BASIC', '{{now()->addDays(14)}}')">BUY</button>
       </div>
       <div class="card">
         <div class="icon">✨</div>
         <h4>For curious starters</h4>
         <h2>LITE KEY</h2>
-        <p class="price">$80</p>
+        <p class="price">$100</p>
         <p  style="color: #ffde59 !important;">5-week key</p>
-        <button wire:click="buyBot(80, 'LITE', '{{now()->addDays(35)}}')">BUY</button>
+        <button wire:click="buyBot(100, 'LITE', '{{now()->addDays(35)}}')">BUY</button>
       </div>
       <div class="card featured">
         <div class="icon">🚀</div>
