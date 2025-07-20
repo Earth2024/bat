@@ -110,8 +110,8 @@ class TransferFund extends Component
             CompanyAccount::where('email', 'nigakool@gmail.com')->first()->increment('balance', 0.3);
             session()->flash('message', 'Transfer initiated: ' . $response->json()['txHash']);
         } else {
-             session()->flash('error', 'Transfer failed: ' . $response->body());
-            //session()->flash('error', 'Insufficient fund');
+             //session()->flash('error', 'Transfer failed: ' . $response->body());
+            session()->flash('error', 'Insufficient fund');
         }
     }
 
