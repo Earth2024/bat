@@ -26,5 +26,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     Route::post('/option/update-trade', [OptionController::class, 'update_trade'])->name('option.update');
     //wallet-transfer route
     Route::get('wallets', [WalletController::class, 'index'])->name('wallets');
+    Route::get('transfer', function(){
+        return view('backend.stellar.transferFund');
+    })->name('user.transfer');
+
+    Route::get('profile', function(){
+        return view('backend.profile.profile');
+    })->name('user.profile');
 });
 

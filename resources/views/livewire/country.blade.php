@@ -1,4 +1,4 @@
-<div wire:ignore>
+<div wire:ignore style="display: grid; grid-template-columns: 0.9fr; margin: auto; justify-content: center; ">
     <select id="country-select" name="country" class="form-control" style="width: 100%;">
         <option value="">Select a country</option>
         @foreach($countries as $code => $name)

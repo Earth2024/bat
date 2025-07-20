@@ -36,9 +36,9 @@ Route::get('/', function () {
 })->name('home');
 
 
-// Route::get('user/option/livewire-dispatch-test', function () {
-//     return view('test2');
-// })->middleware('auth');
+Route::get('user-test', function () {
+    return view('deriv-form');
+});
 
 
 // Route::view('dashboard', 'dashboard')

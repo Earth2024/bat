@@ -5,7 +5,17 @@
         p, h5, span{
             font-size: 13px;
         }
+
+        .wallet-actions{
+            width: 100% !important;
+        }
+
+        button a, button span, button {
+            font-size: 9px;
+            width: auto !important;
+        }
     }
+
 </style>
 @section('content')
     <div class="container" style="">
@@ -37,11 +47,14 @@
             </div>
         </div>
         <div class="wallet-actions" style=" margin-bottom: 2rem; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <button onclick="copyLink()">Copy Link 
-                <span style="font-size: 9px;" id="refLink"></span>
+            <button style="background-color: black;" onclick="copyLink()"> 
+                <a href="{{route('deposit')}}" style="color: white;">Deposit</a>
             </button>
-            <button onclick="shareProfile()">Share Profile</button>
-            <button><a href="{{route('deposit')}}" style="color: white;">Deposit Fund</a></button>
+            <button style="background-color: black;"><a href="{{route('wallets')}}" style="color: white;">Transfer</a></button>
+            <button style="background-color: black;"><a href="{{route('user.transfer')}}" style="color: white;">Withdraw</a></button>
+            <button style="background-color: black;" onclick="copyLink()">
+                <a href="{{route('deposit')}}" style="color: white;">Referral</a>
+            </button>
         </div>
     </div>
     

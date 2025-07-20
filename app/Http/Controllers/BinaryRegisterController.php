@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pin;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\BnbWallet;
@@ -52,19 +53,25 @@ class BinaryRegisterController extends Controller
             $acc = Account::create(['user_id' => $user->id]);
             OptionAccount::create(['account_id' => $acc->id]);
             BotAccount::create(['account_id' => $acc->id]);
+            if($acc){
+                Pin::create([
+                    'account_id' => $acc->id, 
+                    'pin' => Hash::make(0000),
+                ]);
+            }
 
             //wallet creation
-            $sol = app()->call('App\\Services\\Wallets\\SolanaWallet@generateSolanaWallet');
+            //$sol = app()->call('App\\Services\\Wallets\\SolanaWallet@generateSolanaWallet');
             $bnb = app()->call('App\\Services\\Wallets\\BnbWallet@generateBnbWallet');
-            $eth = app()->call('App\\Services\\Wallets\\EtherWallet@generateEthereumWallet');
+            //$eth = app()->call('App\\Services\\Wallets\\EtherWallet@generateEthereumWallet');
 
-            $sol['user_id'] = $user->id;
+           // $sol['user_id'] = $user->id;
             $bnb['user_id'] = $user->id;
-            $eth['user_id'] = $user->id;
+           // $eth['user_id'] = $user->id;
 
             BnbWallet::create($bnb);
-            EthWallet::create($eth);
-            SolWallet::create($sol);
+            //EthWallet::create($eth);
+            //SolWallet::create($sol);
         }
 
 

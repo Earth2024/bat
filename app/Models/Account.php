@@ -19,4 +19,8 @@ class Account extends Model
     public function botAccount(){
         return $this->hasOne(BotAccount::class);
     }
+
+    public function pin(){
+        return $this->hasOne(Pin::class);
+    }
 }

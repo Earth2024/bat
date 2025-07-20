@@ -1,5 +1,16 @@
 @extends('layouts.frontend')
 @section('title', 'BinaryAiTrade - Login')
+<style>
+    input{
+        width: 90% !important;
+        margin: auto !important;
+        display: block !important;
+    }
+
+    label{
+        padding: 1rem;
+    }
+</style>
 @section('content')
 
     <div style="max-width: 450px; margin: 2rem auto;">

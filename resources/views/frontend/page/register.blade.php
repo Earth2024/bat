@@ -1,8 +1,19 @@
 @extends('layouts.frontend')
 @section('title', 'BinaryAiTrade - Register')
+<style>
+    input{
+        display: block !important;
+        width: 90% !important;
+        margin: auto !important;
+    }
+
+    label{
+        padding: 1rem;
+    }
+</style>
 @section('content')
 
-    <div style="max-width: 450px; margin: 2rem auto;">
+    <div style="max-width: 450px; margin: 2rem auto; display: flex; flex-direction: column; justify-content: center;  ">
         <h2 style="text-align: center; margin-bottom: 1.3rem;">CREATE AN ACCOUNT</h2>
         <form action="{{route('bat.register')}}" method="post">
             @csrf
@@ -18,7 +29,9 @@
                 <span class="alert alert-danger">{{$message}}</span>
             @enderror
 
-            <livewire:country />
+            <div class="w-full mx-auto mt-5">
+                <livewire:country />
+            </div>
 
             <label for="email" style="margin-top: 1rem;">E-mail</label>
             <input type="email" id="email" name="email">

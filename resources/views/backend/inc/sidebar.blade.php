@@ -25,16 +25,16 @@
             <a href="{{route('option')}}">Binary Option</a>
         </li>
         <li>
-            <img src="{{url('backend/img/profile-img.png')}}" alt="" style="width: 30px; height: 30px;">
+            <img src="{{url('backend/img/trophy.png')}}" alt="" style="width: 30px; height: 30px;">
             <a href="">Monthly Contest</a>
         </li>
+        <!-- <li>
+            <img src="{{url('#')}}" alt="" style="width: 30px; height: 30px;">
+            <a href="" class="">Account</a>
+        </li> -->
         <li>
             <img src="{{url('backend/img/profile-img.png')}}" alt="" style="width: 30px; height: 30px;">
-            <a href="" class="" wire:navigate>Account</a>
-        </li>
-        <li>
-            <img src="{{url('backend/img/profile-img.png')}}" alt="" style="width: 30px; height: 30px;">
-            <a href="" class="" wire:navigate>Profile</a>
+            <a href="{{route('user.profile')}}" class="">Profile</a>
         </li>
         <!-- <li>
             <img src="{{url('backend/img/profile-img.png')}}" alt="" style="width: 30px; height: 30px;">
