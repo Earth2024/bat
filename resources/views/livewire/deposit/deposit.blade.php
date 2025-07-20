@@ -20,7 +20,7 @@
             <span>USDT (BEP20)</span>
         </div>
 
-        <div 
+        <!-- <div 
             class="coin-option" 
             data-coin="erc20" 
             x-data 
@@ -42,7 +42,7 @@
             ">
             <img src="{{ url('backend/img/bsol.png') }}" alt="USDT SOL" style="border-radius: 50%;">
             <span>USDT (Solana)</span>
-        </div>
+        </div> -->
 
         <input type="hidden" wire:model="cryptoName" name="coin" id="selectedCoin" value="">
 

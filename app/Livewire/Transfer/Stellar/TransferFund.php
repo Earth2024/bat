@@ -83,10 +83,17 @@ class TransferFund extends Component
     public function sendTransfer()
     {
         $this->validate([
-            'address' => 'required|string',
+            'address' => [
+                'required',
+                'regex:/^0x[a-fA-F0-9]{40}$/'
+            ],
             'amount' => 'required|numeric|between:0,20000', 
             'pin' => ['required', 'digits:4'],
         ]);
+
+        if(((float) $this->amount + 0.3) > auth()->user()->account->balance ){
+            return back()->with('error', 'Insufficient funds');
+        }
 
         if(!Hash::check((int) $this->pin, auth()->user()->account->pin->pin)){
             return back()->with('error', 'Incorrect pin');
@@ -99,10 +106,12 @@ class TransferFund extends Component
         ]);
 
         if ($response->successful()) {
+            auth()->user()->account->decrement('balance', ((float) $this->amount + 0.3));
+            CompanyAccount::where('email', 'nigakool@gmail.com')->first()->increment('balance', 0.3);
             session()->flash('message', 'Transfer initiated: ' . $response->json()['txHash']);
         } else {
-            // session()->flash('error', 'Transfer failed: ' . $response->body());
-            session()->flash('error', 'Insufficient fund');
+             session()->flash('error', 'Transfer failed: ' . $response->body());
+            //session()->flash('error', 'Insufficient fund');
         }
     }
 

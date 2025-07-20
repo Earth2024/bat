@@ -29,6 +29,11 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Recipient Wallet (Only USDT BEP20 )</label>
                     <input style="border: 1px solid black;" type="text" wire:model.defer="address" class="mt-1 block w-full  rounded-md border-black-300 shadow-sm focus:ring" />
+                    @error('address') 
+                        <div>
+                            <span class="text-sm text-red-500">{{$message}}</span>
+                        </div>
+                     @enderror
                 </div>
 
                 <div>
