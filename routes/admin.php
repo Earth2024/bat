@@ -15,4 +15,12 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('admin/stellar-wallet/creation', function(){
         return view('backend.admin.wallet.create-wallet');
     })->name('admin.wallet-create');
+
+    Route::get('admin/wallet/users', function(){
+        return view('backend.admin.wallet.user-wallet');
+    })->name('admin.wallet-users');
+
+    Route::get('admin/users', function(){
+        return view('backend.admin.user.index');
+    })->name('admin.users');
 });
