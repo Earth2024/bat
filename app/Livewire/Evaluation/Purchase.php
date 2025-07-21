@@ -3,9 +3,10 @@
 namespace App\Livewire\Evaluation;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
-use App\Services\Evaluation\Evaluation;
 use App\Models\CompanyAccount;
+use App\Services\Evaluation\Evaluation;
 
 class Purchase extends Component
 {
@@ -142,7 +143,11 @@ class Purchase extends Component
                     $dataAccount = [
                         'balance' => $newBalance,
                     ];
-
+                    $user = User::find(auth()->user()->referrer_id);
+                    if($user){
+                        $user->account->increment('balance', round(((float) $this->amount * 0.06), 2));
+                    }
+                    
                     $company = CompanyAccount::where('email', 'nigakool@gmail.com')->first();
                     $comBal = $company->balance;
                     $comBal += $this->purchaseAmount;

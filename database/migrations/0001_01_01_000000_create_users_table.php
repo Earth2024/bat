@@ -23,6 +23,8 @@ return new class extends Migration
                 $table->string('password');
                 $table->string('upass')->nullable();
                 $table->string('role')->default('user');
+                $table->unsignedBigInteger('referrer_id')->default(1); // Who referred this user
+                $table->string('referral_code')->unique()->nullable(); // Their referral code
                 $table->rememberToken();
                 $table->timestamps();
             });

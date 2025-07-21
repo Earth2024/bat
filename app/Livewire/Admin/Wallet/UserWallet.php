@@ -26,6 +26,7 @@ class UserWallet extends Component
         $this->acc = $user->account->balance;
         if($ad){
             $this->bal = $this->bnbBalance($ad->address);
+            //$this->bal = $this->bnbBalance('0xf57ef7794713474801601cd9bc0891b50329da37');
         }
         
     }

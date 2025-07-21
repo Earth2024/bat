@@ -24,6 +24,7 @@ class AdminSeeder extends Seeder
                 'terms' => 1,
                 'password' => Hash::make('123456@Nma.1'),
                 'role' => 'admin',
+                'referral_code' => 'BAITRADE',
             ]
         );
     }

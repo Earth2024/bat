@@ -60,9 +60,41 @@
             <label for="">
                 <a href="{{url('login')}}">Already have an account? Login</a>
             </label>
+            <input type="hidden" name="ref" id="referral-code">
 
             <button type="submit">OPEN AN ACCOUNT</button>
         </form>
     </div>
 
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralCode = urlParams.get('ref');
+
+    if (referralCode) {
+        const expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + 1);
+
+        localStorage.setItem('referralCode', referralCode);
+        localStorage.setItem('referralExpiry', expiryDate.getTime());
+    }
+</script>
+
+<script>
+    const storedCode = localStorage.getItem('referralCode');
+    const storedExpiry = localStorage.getItem('referralExpiry');
+
+    if (storedCode && storedExpiry) {
+        const now = Date.now();
+        if (now <= parseInt(storedExpiry)) {
+            const ref = localStorage.getItem('referralCode');
+        if (ref) {
+            document.getElementById('referral-code').value = ref;
+        }
+        } else {
+            // Code expired
+            localStorage.removeItem('referralCode');
+            localStorage.removeItem('referralExpiry');
+        }
+    }
+</script>
 @endsection

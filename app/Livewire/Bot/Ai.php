@@ -3,6 +3,7 @@
 namespace App\Livewire\Bot;
 
 use App\Models\Bot;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
@@ -60,6 +61,11 @@ class Ai extends Component
                     ],
 
                 ]);
+
+                $user = User::find(auth()->user()->referrer_id);
+                if($user){
+                    $user->account->increment('balance', round(((float) $this->amount * 0.06), 2));
+                }
 
                 session()->flash('success', 'You have successfully purchased trading Bot. ');
             }else{

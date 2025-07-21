@@ -27,7 +27,9 @@ class User extends Authenticatable
         'firstName',
         'upass',
         'terms',
-    ];
+        'referral_code',
+        'referrer_id',
+     ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -81,5 +83,6 @@ class User extends Authenticatable
     public function bnb(){
         return $this->hasOne(BnbWallet::class);
     }
+    
 }
 

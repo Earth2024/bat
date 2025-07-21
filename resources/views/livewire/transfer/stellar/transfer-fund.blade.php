@@ -48,7 +48,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Pin (4 Digits)</label>
-                    <input style="border: 1px solid black;" type="text" wire:model.live="pin" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring" />
+                    <input style="border: 1px solid black;" type="password" wire:model.live="pin" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring" />
                     @error('pin') 
                         <div>
                             <span class="text-sm text-red-500">{{$message}}</span>

@@ -52,9 +52,7 @@
             </button>
             <button style="background-color: black;"><a href="{{route('wallets')}}" style="color: white;">Transfer</a></button>
             <button style="background-color: black;"><a href="{{route('user.transfer')}}" style="color: white;">Withdraw</a></button>
-            <button style="background-color: black;" onclick="copyLink()">
-                <a href="{{route('deposit')}}" style="color: white;">Referral</a>
-            </button>
+            <livewire:referral-system />
         </div>
     </div>
     
@@ -95,12 +93,12 @@
             startCountdown(123456789);
         };
 
-        function copyLink() {
-                const link = "okay for now"; // Replace with your actual link
+        function copyLink(referrer) {
+                const link = `${referrer}`; // Replace with your actual link
                 navigator.clipboard.writeText(link)
                     .then(() => {
                     const status = document.getElementById("refLink");
-                    //status.textContent = "Copied!";
+                    status.textContent = "Copied!";
                     
                     // Clear the text after 5 seconds
                     setTimeout(() => {

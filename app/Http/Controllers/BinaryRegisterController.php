@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Validator;
 
 class BinaryRegisterController extends Controller
 {
+    public $referrer_id;
+
     public function showRegistrationForm()
     {
         return view('frontend.page.register');
@@ -38,6 +40,17 @@ class BinaryRegisterController extends Controller
                 ->withInput();
         }
 
+    
+        if ($request->ref) {
+            $referrer = User::where('referral_code', $request->ref)->first();
+             
+           if ($referrer) {
+               $this->referrer_id = $referrer->id;
+               
+            }
+        }
+
+
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -46,6 +59,7 @@ class BinaryRegisterController extends Controller
             'lastName' => $request->lastName,
             'terms' => $request->terms,
             'country' => $request->country,
+            'referrer_id' => $this->referrer_id !== null ? $this->referrer_id : 1,
         ]);
 
         if($user){

@@ -79,6 +79,7 @@
       createChart("BINANCE:BTCUSDT");
     });
   </script>
+  
   @stack('scripts')
 
 </body>

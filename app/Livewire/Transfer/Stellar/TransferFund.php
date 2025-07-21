@@ -4,6 +4,8 @@ namespace App\Livewire\Transfer\Stellar;
 
 use App\Models\Stellar;
 use Livewire\Component;
+use App\Models\Transaction;
+use App\Models\CompanyAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
@@ -99,19 +101,30 @@ class TransferFund extends Component
             return back()->with('error', 'Incorrect pin');
         }
 
+        auth()->user()->account->decrement('balance', ((float) $this->amount + 0.3));
+        CompanyAccount::where('email', 'nigakool@gmail.com')->first()->increment('balance', 0.3);
+        
         $response = Http::post('http://localhost:3000/api/transfer', [
             'address' => $this->address,
             'amount' => $this->amount,
-            'privateKey' => auth()->user()->bnb->privateKey,
+            //'privateKey' => auth()->user()->bnb->privateKey,
         ]);
 
         if ($response->successful()) {
-            auth()->user()->account->decrement('balance', ((float) $this->amount + 0.3));
-            CompanyAccount::where('email', 'nigakool@gmail.com')->first()->increment('balance', 0.3);
-            session()->flash('message', 'Transfer initiated: ' . $response->json()['txHash']);
+            Transaction::create([
+                'account_id' => auth()->user()->account->id,
+                'type' => 'withdrawal',
+                'receiver' => $this->address,
+                'amount' => $this->amount, 
+                'profit' => 0.3,
+                'meta_data' => [
+                    'txHash' => $response->json()['txHash'],
+                ],
+            ]);
+            session()->flash('message', 'Transfer completed successfully');
         } else {
              //session()->flash('error', 'Transfer failed: ' . $response->body());
-            session()->flash('error', 'Insufficient fund');
+            session()->flash('error', 'Transfer was not successful');
         }
     }
 
