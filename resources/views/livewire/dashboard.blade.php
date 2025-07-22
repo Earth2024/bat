@@ -82,8 +82,8 @@
             startCountdown(123456789);
         };
 
-        function copyLink() {
-                const link = "okay for now"; // Replace with your actual link
+        function copyLink(ref) {
+                const link = `${ref}`; // Replace with your actual link
                 navigator.clipboard.writeText(link)
                     .then(() => {
                     const status = document.getElementById("refLink");
@@ -95,7 +95,7 @@
                     }, 5000);
                     })
                     .catch(err => console.error("Failed to copy: ", err));
-            }
+        }
 
 
     function shareProfile() {

@@ -145,7 +145,7 @@ class Purchase extends Component
                     ];
                     $user = User::find(auth()->user()->referrer_id);
                     if($user){
-                        $user->account->increment('balance', round(((float) $this->amount * 0.06), 2));
+                        $user->referralAccount->increment('balance', round(((float) $this->amount * 0.06), 2));
                     }
                     
                     $company = CompanyAccount::where('email', 'nigakool@gmail.com')->first();

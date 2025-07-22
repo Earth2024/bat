@@ -11,6 +11,7 @@ use App\Models\SolWallet;
 use App\Models\BotAccount;
 use Illuminate\Http\Request;
 use App\Models\OptionAccount;
+use App\Models\ReferralAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,6 +68,7 @@ class BinaryRegisterController extends Controller
             $acc = Account::create(['user_id' => $user->id]);
             OptionAccount::create(['account_id' => $acc->id]);
             BotAccount::create(['account_id' => $acc->id]);
+            ReferralAccount::create(['user_id' => $user->id]);
             if($acc){
                 Pin::create([
                     'account_id' => $acc->id, 

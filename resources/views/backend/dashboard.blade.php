@@ -31,7 +31,10 @@
 
                 <h4 style="display: block; position: absolute; top: 0; right: 0;"><img style="background-color:  #ff5722; fill:  #ff5722; width: 40px; height: 50px; border-radius: 50%;" src="{{url('binary/logo.jpg')}}" alt="Profile Picture"></h4>
                 <h4 style="position: absolute; bottom: 0; right: 9px; border-radius: 30px; background-color: rgb(215, 105, 85); color: white; padding: 5px 10px;">
-                        <span><span>@</span>{{explode( '@', auth()->user()->email)[0]}}</span>
+                    <span>
+                        <a href="{{route('user.referral')}}">Referral</a>
+                        <!-- <span>@</span>{{explode( '@', auth()->user()->email)[0]}} -->
+                    </span>
                 </h4>
             </div>
             <div class="wallet-section">

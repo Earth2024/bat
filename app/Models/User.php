@@ -83,6 +83,14 @@ class User extends Authenticatable
     public function bnb(){
         return $this->hasOne(BnbWallet::class);
     }
+
+    public function referralAccount(){
+        return $this->hasOne(ReferralAccount::class);
+    }
+
+    public function kyc(){
+        return $this->hasOne(Kyc::class);
+    }
     
 }
 

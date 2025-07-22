@@ -33,5 +33,13 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     Route::get('profile', function(){
         return view('backend.profile.profile');
     })->name('user.profile');
+
+    Route::get('referral', function(){
+        return view('backend.referral.user');
+    })->name('user.referral');
+
+    Route::get('know-your-customer', function(){
+        return view('backend.kyc.index');
+    })->name('user.kyc');
 });
 
